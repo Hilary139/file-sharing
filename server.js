@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }))
 const upload = multer({ dest: "uploads" })
 
 
-mongoose.connect(process.env.MONGODB__URL, {
+mongoose.connect(process.env.MONGODB__URL || 'mongodb://127.0.0.1/fileSharing', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         })   

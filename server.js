@@ -2,7 +2,7 @@ const dotenv = require("dotenv")
 dotenv.config();
 const multer = require("multer")
 const mongoose = require("mongoose")
-// const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt")
 const File = require("./models/File")
 
 const express = require("express")
@@ -31,11 +31,11 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     path: req.file.path,
     originalName: req.file.originalname,
   }
-  /*
+  
   if (req.body.password != null && req.body.password !== "") {
     fileData.password = await bcrypt.hash(req.body.password, 10)
   }
-  */
+  
   const file = await File.create(fileData)
 
   res.render("index", { fileLink: `${req.headers.origin}/file/${file.id}` })
@@ -51,12 +51,12 @@ async function handleDownload(req, res) {
       res.render("password")
       return
     }
-/*
+
     if (!(await bcrypt.compare(req.body.password, file.password))) {
       res.render("password", { error: true })
       return
     }
-    */
+    
   }
 
   file.downloadCount++
